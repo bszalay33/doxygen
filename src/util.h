@@ -37,6 +37,49 @@
 #include "outputgen.h"
 #include "regex.h"
 
+#include <exception>
+#include <fstream>
+
+class PathNameException : public std::exception
+{
+  virtual const char* what() const
+  {
+    return "Illegal path name.";
+  }
+};
+
+class PathName
+{
+public:
+  explicit PathName(std::string path) : path_(path)
+  {
+    if (!isValidPathName(path))
+    {
+      throw new PathNameException;
+    }
+  }
+  explicit PathName(std::string&& path) : path_(std::move(path))
+  {
+    if (!isValidPathName(path))
+    {
+      throw new PathNameException;
+    }
+  }
+  std::string get() const { return path_; }
+
+  bool isValidPathName(std::string path)
+  {
+    std::ifstream test(path);
+    if (test.good())
+    {
+      return true;
+    }
+    return false;
+  }
+private:
+  std::string path_;
+};
+
 //--------------------------------------------------------------------
 
 class ClassDef;
