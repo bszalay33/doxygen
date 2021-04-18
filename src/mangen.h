@@ -19,6 +19,7 @@
 #define MANGEN_H
 
 #include "outputgen.h"
+#include "util.h"
 
 class QFile;
 
@@ -144,7 +145,7 @@ class ManGenerator : public OutputGenerator
     void endDoxyAnchor(const char *,const char *) {}
     void writeLatexSpacing() {}
     void writeStartAnnoItem(const char *type,const char *file,
-                            const char *path,const char *name);
+                            const PathName path,const char *name);
     void writeEndAnnoItem(const char *) { t << endl; m_firstCol=TRUE; }
     void startSubsection();
     void endSubsection();

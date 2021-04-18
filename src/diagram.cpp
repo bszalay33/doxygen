@@ -23,7 +23,6 @@
 #include "classdef.h"
 #include "config.h"
 #include "message.h"
-#include "util.h"
 #include "doxygen.h"
 #include "portable.h"
 #include "index.h"
@@ -1043,7 +1042,7 @@ ClassDiagram::~ClassDiagram()
 {
 }
 
-void ClassDiagram::writeFigure(FTextStream &output,const char *path,
+void ClassDiagram::writeFigure(FTextStream &output,const PathName path,
                                const char *fileName) const
 {
   uint baseRows=p->base.computeRows();
@@ -1084,7 +1083,7 @@ void ClassDiagram::writeFigure(FTextStream &output,const char *path,
 
   //printf("writeFigure rows=%d cols=%d\n",rows,cols);
 
-  QCString epsBaseName=(QCString)path+"/"+fileName;
+  QCString epsBaseName=(QCString)path.get()+"/"+fileName;
   QCString epsName=epsBaseName+".eps";
   QFile f1;
   f1.setName(epsName.data());
@@ -1336,7 +1335,7 @@ void ClassDiagram::writeFigure(FTextStream &output,const char *path,
 }
 
 
-void ClassDiagram::writeImage(FTextStream &t,const char *path,
+void ClassDiagram::writeImage(FTextStream &t,const PathName path,
                               const char *relPath,const char *fileName,
                               bool generateMap) const
 {
@@ -1364,7 +1363,7 @@ void ClassDiagram::writeImage(FTextStream &t,const char *path,
   p->super.drawConnectors(t,&image,FALSE,TRUE,baseRows,superRows,cellWidth,cellHeight);
 
 #define IMAGE_EXT ".png"
-  image.save((QCString)path+"/"+fileName+IMAGE_EXT);
+  image.save((QCString)path.get()+"/"+fileName+IMAGE_EXT);
   Doxygen::indexList->addImageFile(QCString(fileName)+IMAGE_EXT);
 }
 

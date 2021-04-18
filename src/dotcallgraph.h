@@ -20,6 +20,7 @@
 #include "dotgraph.h"
 #include "ftextstream.h"
 #include "memberdef.h"
+#include "util.h"
 
 /** Representation of an call graph */
 class DotCallGraph : public DotGraph
@@ -31,7 +32,7 @@ class DotCallGraph : public DotGraph
     bool isTooBig() const;
     int numNodes() const;
     QCString writeGraph(FTextStream &t, GraphOutputFormat gf, EmbeddedOutputFormat ef,
-                        const char *path,const char *fileName,
+                        const PathName path,const char *fileName,
                         const char *relPath,bool writeImageMap=TRUE,
                         int graphId=-1);
 

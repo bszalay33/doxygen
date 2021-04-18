@@ -15,7 +15,6 @@
 
 #include "dotincldepgraph.h"
 #include "dotnode.h"
-#include "util.h"
 #include "config.h"
 
 void DotInclDepGraph::buildGraph(DotNode *n,const FileDef *fd,int distance)
@@ -183,7 +182,7 @@ QCString DotInclDepGraph::getMapLabel() const
 QCString DotInclDepGraph::writeGraph(FTextStream &out,
                                      GraphOutputFormat graphFormat,
                                      EmbeddedOutputFormat textFormat,
-                                     const char *path,
+                                     const PathName path,
                                      const char *fileName,
                                      const char *relPath,
                                      bool generateImageMap,

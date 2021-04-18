@@ -11694,21 +11694,21 @@ void generateOutput()
       && !Config_getBool(USE_MATHJAX))
   {
     g_s.begin("Generating images for formulas in HTML...\n");
-    fm.generateImages(Config_getString(HTML_OUTPUT), Config_getEnum(HTML_FORMULA_FORMAT)=="svg" ?
+    fm.generateImages(PathName(Config_getString(HTML_OUTPUT)), Config_getEnum(HTML_FORMULA_FORMAT)=="svg" ?
         FormulaManager::Format::Vector : FormulaManager::Format::Bitmap, FormulaManager::HighDPI::On);
     g_s.end();
   }
   if (fm.hasFormulas() && generateRtf)
   {
     g_s.begin("Generating images for formulas in RTF...\n");
-    fm.generateImages(Config_getString(RTF_OUTPUT),FormulaManager::Format::Bitmap);
+    fm.generateImages(PathName(Config_getString(RTF_OUTPUT)),FormulaManager::Format::Bitmap);
     g_s.end();
   }
 
   if (fm.hasFormulas() && generateDocbook)
   {
     g_s.begin("Generating images for formulas in Docbook...\n");
-    fm.generateImages(Config_getString(DOCBOOK_OUTPUT),FormulaManager::Format::Bitmap);
+    fm.generateImages(PathName(Config_getString(DOCBOOK_OUTPUT)),FormulaManager::Format::Bitmap);
     g_s.end();
   }
 
@@ -11827,7 +11827,7 @@ void generateOutput()
   if (generateRtf)
   {
     g_s.begin("Combining RTF output...\n");
-    if (!RTFGenerator::preProcessFileInplace(Config_getString(RTF_OUTPUT),"refman.rtf"))
+    if (!RTFGenerator::preProcessFileInplace(PathName(Config_getString(RTF_OUTPUT)),"refman.rtf"))
     {
       err("An error occurred during post-processing the RTF files!\n");
     }

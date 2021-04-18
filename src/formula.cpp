@@ -17,7 +17,6 @@
 #include "message.h"
 #include "config.h"
 #include "ftextstream.h"
-#include "util.h"
 #include "portable.h"
 #include "image.h"
 
@@ -129,9 +128,9 @@ void FormulaManager::readFormulas(const char *dir,bool doCompare)
   }
 }
 
-void FormulaManager::generateImages(const char *path,Format format,HighDPI hd) const
+void FormulaManager::generateImages(const PathName path,Format format,HighDPI hd) const
 {
-  QDir d(path);
+  QDir d((QCString)path.get());
   // store the original directory
   if (!d.exists())
   {

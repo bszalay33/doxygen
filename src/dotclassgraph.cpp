@@ -18,7 +18,6 @@
 #include "dotnode.h"
 
 #include "config.h"
-#include "util.h"
 
 void DotClassGraph::addClass(const ClassDef *cd,DotNode *n,int prot,
   const char *label,const char *usedName,const char *templSpec,bool base,int distance)
@@ -444,7 +443,7 @@ QCString DotClassGraph::getImgAltText() const
 QCString DotClassGraph::writeGraph(FTextStream &out,
   GraphOutputFormat graphFormat,
   EmbeddedOutputFormat textFormat,
-  const char *path,
+  const PathName path,
   const char *fileName,
   const char *relPath,
   bool /*isTBRank*/,

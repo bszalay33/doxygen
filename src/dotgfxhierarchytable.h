@@ -26,6 +26,7 @@
 
 #include "dotgraph.h"
 #include "dotnode.h"
+#include "util.h"
 
 class ClassLinkedMap;
 
@@ -34,9 +35,9 @@ class DotGfxHierarchyTable : public DotGraph
 {
   public:
     DotGfxHierarchyTable(const char *prefix="",ClassDef::CompoundType ct=ClassDef::Class);
-    void createGraph(DotNode *rootNode,FTextStream &t,const char *path,
+    void createGraph(DotNode *rootNode,FTextStream &t,const PathName path,
                      const char *fileName,int id);
-    void writeGraph(FTextStream &t,const char *path, const char *fileName);
+    void writeGraph(FTextStream &t,const PathName path, const char *fileName);
     const std::vector<DotNode*> subGraphs() const { return m_rootSubgraphs; }
 
   protected:

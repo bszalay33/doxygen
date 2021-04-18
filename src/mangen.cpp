@@ -24,7 +24,6 @@
 #include "message.h"
 #include "mangen.h"
 #include "config.h"
-#include "util.h"
 #include "doxygen.h"
 #include <string.h>
 #include "docparser.h"
@@ -227,7 +226,7 @@ void ManGenerator::endIndexItem(const char *,const char *)
 }
 
 void ManGenerator::writeStartAnnoItem(const char *,const char *,
-                                       const char *,const char *)
+                                       const PathName,const char *)
 {
 }
 

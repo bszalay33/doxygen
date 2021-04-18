@@ -21,6 +21,8 @@
 
 #include <memory>
 
+#include "util.h"
+
 class ClassDef;
 class FTextStream;
 
@@ -30,9 +32,9 @@ class ClassDiagram
   public:
     ClassDiagram(const ClassDef *root);
    ~ClassDiagram();
-    void writeFigure(FTextStream &t,const char *path,
+    void writeFigure(FTextStream &t,const PathName path,
                      const char *file) const;
-    void writeImage(FTextStream &t,const char *path,const char *relPath,
+    void writeImage(FTextStream &t,const PathName path,const char *relPath,
                      const char *file,bool generateMap=TRUE) const;
   private:
     struct Private;

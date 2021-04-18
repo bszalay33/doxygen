@@ -18,7 +18,6 @@
 #include "doxygen.h"
 #include "namespacedef.h"
 #include "pagedef.h"
-#include "util.h"
 #include "config.h"
 
 DotGroupCollaboration::DotGroupCollaboration(const GroupDef* gd)
@@ -239,7 +238,7 @@ QCString DotGroupCollaboration::getMapLabel() const
 
 QCString DotGroupCollaboration::writeGraph( FTextStream &t,
   GraphOutputFormat graphFormat, EmbeddedOutputFormat textFormat,
-  const char *path, const char *fileName, const char *relPath,
+  const PathName path, const char *fileName, const char *relPath,
   bool generateImageMap,int graphId)
 {
   m_doNotAddImageToIndex = TRUE;

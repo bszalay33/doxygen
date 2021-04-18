@@ -21,6 +21,7 @@
 
 #include "dotnode.h"
 #include "dotgraph.h"
+#include "util.h"
 
 /** Representation of an include dependency graph */
 class DotInclDepGraph : public DotGraph
@@ -29,7 +30,7 @@ class DotInclDepGraph : public DotGraph
     DotInclDepGraph(const FileDef *fd,bool inverse);
     ~DotInclDepGraph();
     QCString writeGraph(FTextStream &t, GraphOutputFormat gf, EmbeddedOutputFormat ef,
-                        const char *path,const char *fileName,const char *relPath,
+                        const PathName path,const char *fileName,const char *relPath,
                         bool writeImageMap=TRUE,int graphId=-1);
     bool isTrivial() const;
     bool isTooBig() const;

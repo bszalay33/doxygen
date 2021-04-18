@@ -20,6 +20,7 @@
 
 #include "config.h"
 #include "outputgen.h"
+#include "util.h"
 
 class QFile;
 
@@ -222,7 +223,7 @@ class LatexGenerator : public OutputGenerator
     void writeChar(char c);
     void writeLatexSpacing() { t << "\\hspace{0.3cm}"; }
     void writeStartAnnoItem(const char *type,const char *file,
-                            const char *path,const char *name);
+                            const PathName path,const char *name);
     void writeEndAnnoItem(const char *name);
     void startSubsection() { t << "\\subsection*{"; }
     void endSubsection() { t << "}" << endl; }

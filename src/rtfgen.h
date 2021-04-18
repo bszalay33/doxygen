@@ -20,6 +20,7 @@
 
 #include "config.h"
 #include "outputgen.h"
+#include "util.h"
 
 class QFile;
 
@@ -146,7 +147,7 @@ class RTFGenerator : public OutputGenerator
     void writeChar(char c);
     void writeLatexSpacing() {};//{ t << "\\hspace{0.3cm}"; }
     void writeStartAnnoItem(const char *type,const char *file,
-                            const char *path,const char *name);
+                            const PathName path,const char *name);
     void writeEndAnnoItem(const char *name);
     void startSubsection();
     void endSubsection();
@@ -265,7 +266,7 @@ class RTFGenerator : public OutputGenerator
     void setCurrentDoc(const Definition *,const char *,bool) {}
     void addWord(const char *,bool) {}
 
-    static bool preProcessFileInplace(const char *path,const char *name);
+    static bool preProcessFileInplace(const PathName path,const char *name);
 
   private:
     const char *rtf_BList_DepthStyle();

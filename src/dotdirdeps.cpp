@@ -16,7 +16,6 @@
 #include "dotdirdeps.h"
 
 #include "ftextstream.h"
-#include "util.h"
 #include "doxygen.h"
 #include "config.h"
 
@@ -217,7 +216,7 @@ QCString DotDirDeps::getImgAltText() const
 QCString DotDirDeps::writeGraph(FTextStream &out,
   GraphOutputFormat graphFormat,
   EmbeddedOutputFormat textFormat,
-  const char *path,
+  const PathName path,
   const char *fileName,
   const char *relPath,
   bool generateImageMap,

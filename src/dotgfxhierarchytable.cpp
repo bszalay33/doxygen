@@ -16,7 +16,6 @@
 #include "dotgfxhierarchytable.h"
 
 #include "language.h"
-#include "util.h"
 #include "message.h"
 #include "doxygen.h"
 #include "classlist.h"
@@ -60,7 +59,7 @@ QCString DotGfxHierarchyTable::getMapLabel() const
 }
 
 void DotGfxHierarchyTable::createGraph(DotNode *n,FTextStream &out,
-  const char *path,const char *fileName,int id)
+  const PathName path,const char *fileName,int id)
 {
   m_rootSubgraphNode = n;
   m_graphId = id;
@@ -70,14 +69,14 @@ void DotGfxHierarchyTable::createGraph(DotNode *n,FTextStream &out,
 }
 
 void DotGfxHierarchyTable::writeGraph(FTextStream &out,
-  const char *path,const char *fileName)
+  const PathName path,const char *fileName)
 {
   //printf("DotGfxHierarchyTable::writeGraph(%s)\n",name);
   //printf("m_rootNodes=%p count=%d\n",m_rootNodes,m_rootNodes->count());
 
   if (m_rootSubgraphs.empty()) return;
 
-  QDir d(path);
+  QDir d((QCString)path.get());
   // store the original directory
   if (!d.exists())
   {

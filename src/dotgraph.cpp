@@ -18,7 +18,6 @@
 #include "index.h"
 #include "md5.h"
 #include "message.h"
-#include "util.h"
 
 #include "dot.h"
 #include "dotrunner.h"
@@ -106,7 +105,7 @@ QCString DotGraph::writeGraph(
         FTextStream& t,           // output stream for the code file (html, ...)
         GraphOutputFormat gf,     // bitmap(png/svg) or ps(eps/pdf)
         EmbeddedOutputFormat ef,  // html, latex, ...
-        const char* path,         // output folder
+        const PathName path,         // output folder
         const char* fileName,     // name of the code file (for code patcher)
         const char* relPath,      // output folder relative to code file
         bool generateImageMap,    // in case of bitmap, shall there be code generated?
@@ -114,7 +113,7 @@ QCString DotGraph::writeGraph(
 {
   m_graphFormat = gf;
   m_textFormat = ef;
-  m_dir = QDir(path);
+  m_dir = QDir((QCString)path.get());
   m_fileName = fileName;
   m_relPath = relPath;
   m_generateImageMap = generateImageMap;

@@ -3662,7 +3662,7 @@ void writeGraphInfo(OutputList &ol)
   ol.disableAllBut(OutputGenerator::Html);
 
   DotLegendGraph gd;
-  gd.writeGraph(Config_getString(HTML_OUTPUT));
+  gd.writeGraph(PathName(Config_getString(HTML_OUTPUT)));
 
   bool stripCommentsStateRef = Config_getBool(STRIP_CODE_COMMENTS);
   bool oldStripCommentsState = stripCommentsStateRef;

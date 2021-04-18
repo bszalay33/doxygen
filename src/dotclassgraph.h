@@ -19,6 +19,7 @@
 #include "classdef.h"
 #include "dotnode.h"
 #include "dotgraph.h"
+#include "util.h"
 
 /** Representation of a class inheritance or dependency graph */
 class DotClassGraph : public DotGraph
@@ -30,7 +31,7 @@ public:
   bool isTooBig() const;
   int numNodes() const;
   QCString writeGraph(FTextStream &t,GraphOutputFormat gf,EmbeddedOutputFormat ef,
-    const char *path, const char *fileName, const char *relPath,
+    const PathName path, const char *fileName, const char *relPath,
     bool TBRank=TRUE,bool imageMap=TRUE,int graphId=-1);
 
   void writeXML(FTextStream &t);

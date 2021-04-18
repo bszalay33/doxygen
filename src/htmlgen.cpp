@@ -24,7 +24,6 @@
 #include "message.h"
 #include "htmlgen.h"
 #include "config.h"
-#include "util.h"
 #include "doxygen.h"
 #include "diagram.h"
 #include "version.h"
@@ -1122,7 +1121,7 @@ void HtmlGenerator::writeSearchInfo()
 }
 
 
-QCString HtmlGenerator::writeLogoAsString(const char *path)
+QCString HtmlGenerator::writeLogoAsString(const PathName path)
 {
   bool timeStamp = Config_getBool(HTML_TIMESTAMP);
   QCString result;
@@ -1139,7 +1138,7 @@ QCString HtmlGenerator::writeLogoAsString(const char *path)
   }
   result += "&#160;\n<a href=\"https://www.doxygen.org/index.html\">\n"
             "<img class=\"footer\" src=\"";
-  result += path;
+  result += (QCString)path.get();
   result += "doxygen.svg\" width=\"104\" height=\"31\" alt=\"doxygen\"/></a> ";
   result += getDoxygenVersion();
   result += " ";
@@ -1148,7 +1147,7 @@ QCString HtmlGenerator::writeLogoAsString(const char *path)
 
 void HtmlGenerator::writeLogo()
 {
-  t << writeLogoAsString(m_relPath);
+  t << writeLogoAsString(PathName((std::string)m_relPath));
 }
 
 void HtmlGenerator::writePageFooter(FTextStream &t,const QCString &lastTitle,
@@ -1320,10 +1319,10 @@ void HtmlGenerator::endIndexItem(const char *ref,const char *f)
 }
 
 void HtmlGenerator::writeStartAnnoItem(const char *,const char *f,
-                                       const char *path,const char *name)
+                                       const PathName path,const char *name)
 {
   t << "<li>";
-  if (path) docify(path);
+  if (path.get() != nullptr) docify((QCString)path.get());
   t << "<a class=\"el\" href=\"" << addHtmlExtensionIfMissing(f) << "\">";
   docify(name);
   t << "</a> ";
@@ -1573,7 +1572,7 @@ void HtmlGenerator::endClassDiagram(const ClassDiagram &d,
   startSectionSummary(t,m_sectionCount);
   endSectionSummary(t);
   startSectionContent(t,m_sectionCount);
-  d.writeImage(tt,dir(),m_relPath,fileName);
+  d.writeImage(tt,PathName((std::string)dir()),m_relPath,fileName);
   if (!result.isEmpty())
   {
     t << " <div class=\"center\">" << endl;
@@ -1956,7 +1955,7 @@ void HtmlGenerator::endDotGraph(DotClassGraph &g)
   endSectionSummary(t);
   startSectionContent(t,m_sectionCount);
 
-  g.writeGraph(t,GOF_BITMAP,EOF_Html,dir(),fileName(),m_relPath,TRUE,TRUE,m_sectionCount);
+  g.writeGraph(t,GOF_BITMAP,EOF_Html,PathName(dir()),fileName(),m_relPath,TRUE,TRUE,m_sectionCount);
   if (generateLegend && !umlLook)
   {
     t << "<center><span class=\"legend\">[";
@@ -1982,7 +1981,7 @@ void HtmlGenerator::endInclDepGraph(DotInclDepGraph &g)
   endSectionSummary(t);
   startSectionContent(t,m_sectionCount);
 
-  g.writeGraph(t,GOF_BITMAP,EOF_Html,dir(),fileName(),m_relPath,TRUE,m_sectionCount);
+  g.writeGraph(t,GOF_BITMAP,EOF_Html,PathName(dir()),fileName(),m_relPath,TRUE,m_sectionCount);
 
   endSectionContent(t);
   m_sectionCount++;
@@ -2000,7 +1999,7 @@ void HtmlGenerator::endGroupCollaboration(DotGroupCollaboration &g)
   endSectionSummary(t);
   startSectionContent(t,m_sectionCount);
 
-  g.writeGraph(t,GOF_BITMAP,EOF_Html,dir(),fileName(),m_relPath,TRUE,m_sectionCount);
+  g.writeGraph(t,GOF_BITMAP,EOF_Html,PathName(dir()),fileName(),m_relPath,TRUE,m_sectionCount);
 
   endSectionContent(t);
   m_sectionCount++;
@@ -2018,7 +2017,7 @@ void HtmlGenerator::endCallGraph(DotCallGraph &g)
   endSectionSummary(t);
   startSectionContent(t,m_sectionCount);
 
-  g.writeGraph(t,GOF_BITMAP,EOF_Html,dir(),fileName(),m_relPath,TRUE,m_sectionCount);
+  g.writeGraph(t,GOF_BITMAP,EOF_Html,PathName(dir()),fileName(),m_relPath,TRUE,m_sectionCount);
 
   endSectionContent(t);
   m_sectionCount++;
@@ -2036,7 +2035,7 @@ void HtmlGenerator::endDirDepGraph(DotDirDeps &g)
   endSectionSummary(t);
   startSectionContent(t,m_sectionCount);
 
-  g.writeGraph(t,GOF_BITMAP,EOF_Html,dir(),fileName(),m_relPath,TRUE,m_sectionCount);
+  g.writeGraph(t,GOF_BITMAP,EOF_Html,PathName(dir()),fileName(),m_relPath,TRUE,m_sectionCount);
 
   endSectionContent(t);
   m_sectionCount++;
@@ -2044,7 +2043,7 @@ void HtmlGenerator::endDirDepGraph(DotDirDeps &g)
 
 void HtmlGenerator::writeGraphicalHierarchy(DotGfxHierarchyTable &g)
 {
-  g.writeGraph(t,dir(),fileName());
+  g.writeGraph(t,PathName(std::string(dir())),fileName());
 }
 
 void HtmlGenerator::startMemberGroupHeader(bool)
@@ -2592,7 +2591,7 @@ void HtmlGenerator::writeSearchPage()
     t << "  'search_matches' => \"" << theTranslator->trSearchMatches() << "\",\n";
     t << "  'search' => \"" << theTranslator->trSearch() << "\",\n";
     t << "  'split_bar' => \"" << substitute(substitute(writeSplitBarAsString("search",""), "\"","\\\""), "\n","\\n") << "\",\n";
-    t << "  'logo' => \"" << substitute(substitute(writeLogoAsString(""), "\"","\\\""), "\n","\\n") << "\",\n";
+    t << "  'logo' => \"" << substitute(substitute(writeLogoAsString(PathName("")), "\"","\\\""), "\n","\\n") << "\",\n";
     t << ");\n\n";
     t << "?>\n";
   }

@@ -51,23 +51,23 @@ class PathNameException : public std::exception
 class PathName
 {
 public:
-  explicit PathName(std::string path) : path_(path)
+  explicit PathName(const QCString& path) : path_(path)
   {
     if (!isValidPathName(path))
     {
       throw new PathNameException;
     }
   }
-  explicit PathName(std::string&& path) : path_(std::move(path))
+  explicit PathName(QCString&& path) : path_(std::move(path))
   {
     if (!isValidPathName(path))
     {
       throw new PathNameException;
     }
   }
-  std::string get() const { return path_; }
+  QCString get() const { return path_; }
 
-  bool isValidPathName(std::string path)
+  bool isValidPathName(QCString path)
   {
     std::ifstream test(path);
     if (test.good())
@@ -77,7 +77,7 @@ public:
     return false;
   }
 private:
-  std::string path_;
+  QCString path_;
 };
 
 //--------------------------------------------------------------------

@@ -37,6 +37,7 @@ class DotGroupCollaboration;
 class DocNode;
 class MemberDef;
 class Definition;
+class PathName;
 
 struct DocLinkInfo
 {
@@ -421,7 +422,7 @@ class OutputGenerator : public BaseOutputDocInterface
     virtual void endDoxyAnchor(const char *fileName,const char *anchor) = 0;
     virtual void writeLatexSpacing() = 0;
     virtual void writeStartAnnoItem(const char *type,const char *file,
-                                    const char *path,const char *name) = 0;
+                                    const PathName path,const char *name) = 0;
     virtual void writeEndAnnoItem(const char *name) = 0;
     virtual void startMemberDescription(const char *anchor,const char *inheritId, bool typ) = 0;
     virtual void endMemberDescription() = 0;

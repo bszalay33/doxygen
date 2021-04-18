@@ -18,6 +18,7 @@
 
 #include "dotgraph.h"
 #include "dirdef.h"
+#include "util.h"
 
 /** Representation of an directory dependency graph */
 class DotDirDeps : public DotGraph
@@ -29,7 +30,7 @@ class DotDirDeps : public DotGraph
     QCString writeGraph(FTextStream &out,
                         GraphOutputFormat gf,
                         EmbeddedOutputFormat ef,
-                        const char *path,
+                        const PathName path,
                         const char *fileName,
                         const char *relPath,
                         bool writeImageMap=TRUE,

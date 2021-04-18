@@ -1963,7 +1963,7 @@ class ClassContext::Private : public DefinitionContext<ClassContext::Private>
           case ContextOutputFormat_Html:
             {
               cg->writeGraph(t,GOF_BITMAP,EOF_Html,
-                             g_globals.outputDir,
+                             PathName(g_globals.outputDir),
                              g_globals.outputDir+Portable::pathSeparator()+m_classDef->getOutputFileBase()+Doxygen::htmlFileExtension,
                              relPathAsString(),TRUE,TRUE,g_globals.dynSectionId
                             );
@@ -1972,7 +1972,7 @@ class ClassContext::Private : public DefinitionContext<ClassContext::Private>
           case ContextOutputFormat_Latex:
             {
               cg->writeGraph(t,GOF_EPS,EOF_LaTeX,
-                             g_globals.outputDir,
+                             PathName(g_globals.outputDir),
                              g_globals.outputDir+Portable::pathSeparator()+m_classDef->getOutputFileBase()+".tex",
                              relPathAsString(),TRUE,TRUE,g_globals.dynSectionId
                             );
@@ -1996,7 +1996,7 @@ class ClassContext::Private : public DefinitionContext<ClassContext::Private>
               FTextStream tt(&result);
 
               QCString name = convertToHtml(m_classDef->displayName());
-              d.writeImage(tt,g_globals.outputDir,
+              d.writeImage(tt,PathName(g_globals.outputDir),
                            relPathAsString(),
                            m_classDef->getOutputFileBase());
               if (!result.isEmpty())
@@ -2022,7 +2022,7 @@ class ClassContext::Private : public DefinitionContext<ClassContext::Private>
             break;
           case ContextOutputFormat_Latex:
             {
-              d.writeFigure(t,g_globals.outputDir,m_classDef->getOutputFileBase());
+              d.writeFigure(t,PathName(g_globals.outputDir),m_classDef->getOutputFileBase());
             }
             break;
             // TODO: support other generators
@@ -2061,7 +2061,7 @@ class ClassContext::Private : public DefinitionContext<ClassContext::Private>
           case ContextOutputFormat_Html:
             {
               cg->writeGraph(t,GOF_BITMAP,EOF_Html,
-                             g_globals.outputDir,
+                             PathName(g_globals.outputDir),
                              g_globals.outputDir+Portable::pathSeparator()+m_classDef->getOutputFileBase()+Doxygen::htmlFileExtension,
                              relPathAsString(),TRUE,TRUE,g_globals.dynSectionId
                             );
@@ -2070,7 +2070,7 @@ class ClassContext::Private : public DefinitionContext<ClassContext::Private>
           case ContextOutputFormat_Latex:
             {
               cg->writeGraph(t,GOF_EPS,EOF_LaTeX,
-                             g_globals.outputDir,
+                             PathName(g_globals.outputDir),
                              g_globals.outputDir+Portable::pathSeparator()+m_classDef->getOutputFileBase()+".tex",
                              relPathAsString(),TRUE,TRUE,g_globals.dynSectionId
                             );
@@ -3066,7 +3066,7 @@ class FileContext::Private : public DefinitionContext<FileContext::Private>
           case ContextOutputFormat_Html:
             {
               cg->writeGraph(t,GOF_BITMAP,EOF_Html,
-                  g_globals.outputDir,
+                  PathName(g_globals.outputDir),
                   g_globals.outputDir+Portable::pathSeparator()+m_fileDef->getOutputFileBase()+Doxygen::htmlFileExtension,
                   relPathAsString(),TRUE,g_globals.dynSectionId
                   );
@@ -3075,7 +3075,7 @@ class FileContext::Private : public DefinitionContext<FileContext::Private>
           case ContextOutputFormat_Latex:
             {
               cg->writeGraph(t,GOF_EPS,EOF_LaTeX,
-                  g_globals.outputDir,
+                  PathName(g_globals.outputDir),
                   g_globals.outputDir+Portable::pathSeparator()+m_fileDef->getOutputFileBase()+".tex",
                   relPathAsString(),TRUE,g_globals.dynSectionId
                   );
@@ -3118,7 +3118,7 @@ class FileContext::Private : public DefinitionContext<FileContext::Private>
           case ContextOutputFormat_Html:
             {
               cg->writeGraph(t,GOF_BITMAP,EOF_Html,
-                  g_globals.outputDir,
+                  PathName(g_globals.outputDir),
                   g_globals.outputDir+Portable::pathSeparator()+m_fileDef->getOutputFileBase()+Doxygen::htmlFileExtension,
                   relPathAsString(),TRUE,g_globals.dynSectionId
                   );
@@ -3127,7 +3127,7 @@ class FileContext::Private : public DefinitionContext<FileContext::Private>
           case ContextOutputFormat_Latex:
             {
               cg->writeGraph(t,GOF_EPS,EOF_LaTeX,
-                  g_globals.outputDir,
+                  PathName(g_globals.outputDir),
                   g_globals.outputDir+Portable::pathSeparator()+m_fileDef->getOutputFileBase()+".tex",
                   relPathAsString(),TRUE,g_globals.dynSectionId
                   );
@@ -3527,7 +3527,7 @@ class DirContext::Private : public DefinitionContext<DirContext::Private>
             {
               graph->writeGraph(t,GOF_BITMAP,
                                 EOF_Html,
-                                g_globals.outputDir,
+                                PathName(g_globals.outputDir),
                                 g_globals.outputDir+Portable::pathSeparator()+m_dirDef->getOutputFileBase()+Doxygen::htmlFileExtension,
                                 relPathAsString(),
                                 TRUE,
@@ -3539,7 +3539,7 @@ class DirContext::Private : public DefinitionContext<DirContext::Private>
             {
               graph->writeGraph(t,GOF_EPS,
                                 EOF_LaTeX,
-                                g_globals.outputDir,
+                                PathName(g_globals.outputDir),
                                 g_globals.outputDir+Portable::pathSeparator()+m_dirDef->getOutputFileBase()+".tex",
                                 relPathAsString(),
                                 TRUE,
@@ -4952,7 +4952,7 @@ class MemberContext::Private : public DefinitionContext<MemberContext::Private>
           case ContextOutputFormat_Html:
             {
               cg->writeGraph(t,GOF_BITMAP,EOF_Html,
-                  g_globals.outputDir,
+                  PathName(g_globals.outputDir),
                   g_globals.outputDir+Portable::pathSeparator()+m_memberDef->getOutputFileBase()+Doxygen::htmlFileExtension,
                   relPathAsString(),TRUE,g_globals.dynSectionId
                   );
@@ -4961,7 +4961,7 @@ class MemberContext::Private : public DefinitionContext<MemberContext::Private>
           case ContextOutputFormat_Latex:
             {
               cg->writeGraph(t,GOF_EPS,EOF_LaTeX,
-                  g_globals.outputDir,
+                  PathName(g_globals.outputDir),
                   g_globals.outputDir+Portable::pathSeparator()+m_memberDef->getOutputFileBase()+".tex",
                   relPathAsString(),TRUE,g_globals.dynSectionId
                   );
@@ -5024,7 +5024,7 @@ class MemberContext::Private : public DefinitionContext<MemberContext::Private>
           case ContextOutputFormat_Html:
             {
               cg->writeGraph(t,GOF_BITMAP,EOF_Html,
-                  g_globals.outputDir,
+                  PathName(g_globals.outputDir),
                   g_globals.outputDir+Portable::pathSeparator()+m_memberDef->getOutputFileBase()+Doxygen::htmlFileExtension,
                   relPathAsString(),TRUE,g_globals.dynSectionId
                   );
@@ -5033,7 +5033,7 @@ class MemberContext::Private : public DefinitionContext<MemberContext::Private>
           case ContextOutputFormat_Latex:
             {
               cg->writeGraph(t,GOF_EPS,EOF_LaTeX,
-                  g_globals.outputDir,
+                  PathName(g_globals.outputDir),
                   g_globals.outputDir+Portable::pathSeparator()+m_memberDef->getOutputFileBase()+".tex",
                   relPathAsString(),TRUE,g_globals.dynSectionId
                   );
@@ -5294,7 +5294,7 @@ class ModuleContext::Private : public DefinitionContext<ModuleContext::Private>
             {
               graph->writeGraph(t,GOF_BITMAP,
                                 EOF_Html,
-                                g_globals.outputDir,
+                                PathName(g_globals.outputDir),
                                 g_globals.outputDir+Portable::pathSeparator()+m_groupDef->getOutputFileBase()+Doxygen::htmlFileExtension,
                                 relPathAsString(),
                                 TRUE,
@@ -5305,7 +5305,7 @@ class ModuleContext::Private : public DefinitionContext<ModuleContext::Private>
             {
               graph->writeGraph(t,GOF_EPS,
                                 EOF_LaTeX,
-                                g_globals.outputDir,
+                                PathName(g_globals.outputDir),
                                 g_globals.outputDir+Portable::pathSeparator()+m_groupDef->getOutputFileBase()+".tex",
                                 relPathAsString(),
                                 TRUE,
@@ -8308,7 +8308,7 @@ class InheritanceGraphContext::Private
         m_hierarchy->createGraph(m_node,t,
                           /*GOF_BITMAP,
                           EOF_Html,*/
-                          g_globals.outputDir,
+                          PathName(g_globals.outputDir),
                           g_globals.outputDir+Portable::pathSeparator()+"inherits"+Doxygen::htmlFileExtension,
                           m_id);
       }

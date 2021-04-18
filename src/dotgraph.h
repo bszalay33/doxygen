@@ -20,6 +20,8 @@
 #include <qgstring.h>
 #include <qdir.h>
 
+#include "util.h"
+
 class FTextStream;
 class DotNode;
 
@@ -42,7 +44,7 @@ class DotGraph
     QCString writeGraph(FTextStream &t,
                         GraphOutputFormat gf,
                         EmbeddedOutputFormat ef,
-                        const char *path,
+                        const PathName path,
                         const char *fileName,
                         const char *relPath,
                         bool writeImageMap=TRUE,

@@ -27,7 +27,6 @@
 #include "config.h"
 #include "message.h"
 #include "doxygen.h"
-#include "util.h"
 #include "diagram.h"
 #include "language.h"
 #include "dot.h"
@@ -1105,11 +1104,11 @@ void RTFGenerator::endHtmlLink()
 //}
 
 void RTFGenerator::writeStartAnnoItem(const char *,const char *f,
-    const char *path,const char *name)
+    const PathName path,const char *name)
 {
   DBG_RTF(t << "{\\comment (writeStartAnnoItem)}" << endl)
   t << "{\\b ";
-  if (path) docify(path);
+  if (path.get() != nullptr) docify((QCString)path.get());
   if (f && Config_getBool(RTF_HYPERLINKS))
   {
     t << "{\\field {\\*\\fldinst { HYPERLINK  \\\\l \"";
@@ -1837,7 +1836,7 @@ void RTFGenerator::endClassDiagram(const ClassDiagram &d,
   newParagraph();
 
   // create a png file
-  d.writeImage(t,dir(),m_relPath,fileName,FALSE);
+  d.writeImage(t,PathName((std::string)dir()),m_relPath,fileName,FALSE);
 
   // display the file
   t << "{" << endl;
@@ -2458,7 +2457,7 @@ void RTFGenerator::endDotGraph(DotClassGraph &g)
   newParagraph();
 
   QCString fn =
-    g.writeGraph(t,GOF_BITMAP,EOF_Rtf,dir(),fileName(),m_relPath,TRUE,FALSE);
+    g.writeGraph(t,GOF_BITMAP,EOF_Rtf,PathName(dir()),fileName(),m_relPath,TRUE,FALSE);
 
   // display the file
   t << "{" << endl;
@@ -2481,7 +2480,7 @@ void RTFGenerator::endInclDepGraph(DotInclDepGraph &g)
 {
   newParagraph();
 
-  QCString fn = g.writeGraph(t,GOF_BITMAP,EOF_Rtf,dir(),fileName(),m_relPath,FALSE);
+  QCString fn = g.writeGraph(t,GOF_BITMAP,EOF_Rtf,PathName(dir()),fileName(),m_relPath,FALSE);
 
   // display the file
   t << "{" << endl;
@@ -2511,7 +2510,7 @@ void RTFGenerator::endCallGraph(DotCallGraph &g)
 {
   newParagraph();
 
-  QCString fn = g.writeGraph(t,GOF_BITMAP,EOF_Rtf,dir(),fileName(),m_relPath,FALSE);
+  QCString fn = g.writeGraph(t,GOF_BITMAP,EOF_Rtf,PathName(dir()),fileName(),m_relPath,FALSE);
 
   // display the file
   t << "{" << endl;
@@ -2533,7 +2532,7 @@ void RTFGenerator::endDirDepGraph(DotDirDeps &g)
 {
   newParagraph();
 
-  QCString fn = g.writeGraph(t,GOF_BITMAP,EOF_Rtf,dir(),fileName(),m_relPath,FALSE);
+  QCString fn = g.writeGraph(t,GOF_BITMAP,EOF_Rtf,PathName(dir()),fileName(),m_relPath,FALSE);
 
   // display the file
   t << "{" << endl;
@@ -2594,9 +2593,9 @@ err:
  * This is an API to a VERY brittle RTF preprocessor that combines nested
  * RTF files.  This version replaces the infile with the new file
  */
-bool RTFGenerator::preProcessFileInplace(const char *path,const char *name)
+bool RTFGenerator::preProcessFileInplace(const PathName path,const char *name)
 {
-  QDir d(path);
+  QDir d((QCString)path.get());
   // store the original directory
   if (!d.exists())
   {
@@ -2609,8 +2608,8 @@ bool RTFGenerator::preProcessFileInplace(const char *path,const char *name)
   QDir::setCurrent(d.absPath());
   QDir thisDir;
 
-  QCString combinedName = (QCString)path+"/combined.rtf";
-  QCString mainRTFName  = (QCString)path+"/"+name;
+  QCString combinedName = (QCString)path.get()+"/combined.rtf";
+  QCString mainRTFName  = (QCString)path.get()+"/"+name;
 
   QFile outf(combinedName);
   if (!outf.open(IO_WriteOnly))

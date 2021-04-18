@@ -36,19 +36,19 @@
 
 static QCString g_dotFontPath;
 
-static void setDotFontPath(const char *path)
+static void setDotFontPath(const PathName path)
 {
   ASSERT(g_dotFontPath.isEmpty());
   g_dotFontPath = Portable::getenv("DOTFONTPATH");
   QCString newFontPath = Config_getString(DOT_FONTPATH);
-  QCString spath = path;
+  QCString spath = path.get();
   if (!newFontPath.isEmpty() && !spath.isEmpty())
   {
     newFontPath.prepend(spath+Portable::pathListSeparator());
   }
   else if (newFontPath.isEmpty() && !spath.isEmpty())
   {
-    newFontPath=path;
+    newFontPath=path.get();
   }
   else
   {
@@ -172,22 +172,22 @@ bool DotManager::run() const
   bool setPath=FALSE;
   if (Config_getBool(GENERATE_HTML))
   {
-    setDotFontPath(Config_getString(HTML_OUTPUT));
+    setDotFontPath(PathName((std::string)Config_getString(HTML_OUTPUT)));
     setPath=TRUE;
   }
   else if (Config_getBool(GENERATE_LATEX))
   {
-    setDotFontPath(Config_getString(LATEX_OUTPUT));
+    setDotFontPath(PathName((std::string)Config_getString(LATEX_OUTPUT)));
     setPath=TRUE;
   }
   else if (Config_getBool(GENERATE_RTF))
   {
-    setDotFontPath(Config_getString(RTF_OUTPUT));
+    setDotFontPath(PathName((std::string)Config_getString(RTF_OUTPUT)));
     setPath=TRUE;
   }
   else if (Config_getBool(GENERATE_DOCBOOK))
   {
-    setDotFontPath(Config_getString(DOCBOOK_OUTPUT));
+    setDotFontPath(PathName((std::string)Config_getString(DOCBOOK_OUTPUT)));
     setPath=TRUE;
   }
   Portable::sysTimerStart();

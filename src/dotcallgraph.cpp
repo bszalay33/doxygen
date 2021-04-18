@@ -18,7 +18,6 @@
 #include "dotnode.h"
 #include "memberlist.h"
 #include "config.h"
-#include "util.h"
 
 static QCString getUniqueId(const MemberDef *md)
 {
@@ -182,7 +181,7 @@ QCString DotCallGraph::writeGraph(
         FTextStream &out,
         GraphOutputFormat graphFormat,
         EmbeddedOutputFormat textFormat,
-        const char *path,
+        const PathName path,
         const char *fileName,
         const char *relPath,bool generateImageMap,
         int graphId)

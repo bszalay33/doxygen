@@ -14,14 +14,13 @@
 */
 
 #include "dotlegendgraph.h"
-#include "util.h"
 #include "config.h"
 #include "doxygen.h"
 #include "dot.h"
 #include "language.h"
 #include "dotfilepatcher.h"
 
-void DotLegendGraph::writeGraph(const char *path)
+void DotLegendGraph::writeGraph(const PathName path)
 {
   FTextStream ts;
   DotGraph::writeGraph(ts, GOF_BITMAP, EOF_Html, path, "", "", FALSE, 0);

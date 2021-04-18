@@ -22,6 +22,8 @@
 #include <string>
 #include <qcstring.h>
 
+#include "util.h"
+
 /*! Manager class to handle formulas */
 class FormulaManager
 {
@@ -38,7 +40,7 @@ class FormulaManager
     void readFormulas(const char *dir,bool doCompare=false);
     void clear();
     int addFormula(const std::string &formulaText);
-    void generateImages(const char *outputDir,Format format,HighDPI hd = HighDPI::Off) const;
+    void generateImages(const PathName outputDir,Format format,HighDPI hd = HighDPI::Off) const;
     std::string findFormula(int formulaId) const;
     bool hasFormulas() const;
     DisplaySize displaySize(int formulaId) const;

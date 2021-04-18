@@ -38,7 +38,7 @@
 class DirDefImpl : public DefinitionMixin<DirDef>
 {
   public:
-    DirDefImpl(const char *path);
+    DirDefImpl(const PathName path);
     virtual ~DirDefImpl();
 
     virtual DefType definitionType() const { return TypeDir; }
@@ -84,7 +84,7 @@ class DirDefImpl : public DefinitionMixin<DirDef>
     void startMemberDeclarations(OutputList &ol);
     void endMemberDeclarations(OutputList &ol);
 
-    static DirDef *createNewDir(const char *path);
+    static DirDef *createNewDir(const PathName path);
     static bool matchPath(const QCString &path,const StringVector &l);
 
     DirList m_subdirs;
@@ -98,7 +98,7 @@ class DirDefImpl : public DefinitionMixin<DirDef>
     UsedDirLinkedMap m_usedDirs;
 };
 
-DirDef *createDirDef(const char *path)
+DirDef *createDirDef(const PathName path)
 {
   return new DirDefImpl(path);
 }
@@ -109,13 +109,13 @@ DirDef *createDirDef(const char *path)
 
 static int g_dirCount=0;
 
-DirDefImpl::DirDefImpl(const char *path) : DefinitionMixin(path,1,1,path)
+DirDefImpl::DirDefImpl(const PathName path) : DefinitionMixin((QCString)path.get(),1,1,(QCString)path.get())
 {
   bool fullPathNames = Config_getBool(FULL_PATH_NAMES);
   // get display name (stripping the paths mentioned in STRIP_FROM_PATH)
   // get short name (last part of path)
-  m_shortName = path;
-  m_diskName = path;
+  m_shortName = path.get();
+  m_diskName = path.get();
   if (m_shortName.at(m_shortName.length()-1)=='/')
   { // strip trailing /
     m_shortName = m_shortName.left(m_shortName.length()-1);
@@ -126,7 +126,7 @@ DirDefImpl::DirDefImpl(const char *path) : DefinitionMixin(path,1,1,path)
     m_shortName = m_shortName.mid(pi+1);
   }
   setLocalName(m_shortName);
-  m_dispName = fullPathNames ? stripFromPath(path) : m_shortName;
+  m_dispName = fullPathNames ? stripFromPath(path.get()) : m_shortName;
   if (m_dispName.length()>0 && m_dispName.at(m_dispName.length()-1)=='/')
   { // strip trailing /
     m_dispName = m_dispName.left(m_dispName.length()-1);
@@ -763,13 +763,13 @@ FilePair *UsedDir::findFilePair(const char *name)
   return m_filePairs.find(name);
 }
 
-DirDef *DirDefImpl::createNewDir(const char *path)
+DirDef *DirDefImpl::createNewDir(const PathName path)
 {
-  ASSERT(path!=0);
-  DirDef *dir = Doxygen::dirLinkedMap->find(path);
+  ASSERT(path.get()!=0);
+  DirDef *dir = Doxygen::dirLinkedMap->find((QCString)path.get());
   if (dir==0) // new dir
   {
-    dir = Doxygen::dirLinkedMap->add(path,
+    dir = Doxygen::dirLinkedMap->add((QCString)path.get(),
             std::unique_ptr<DirDef>(
               createDirDef(path)));
     //printf("Adding new dir %s\n",path);
@@ -804,7 +804,7 @@ DirDef *DirDefImpl::mergeDirectoryInTree(const QCString &path)
     QCString part=path.left(i+1);
     if (!matchPath(part,Config_getList(STRIP_FROM_PATH)) && (part!="/" && part!="//"))
     {
-      dir=createNewDir(part);
+      dir=createNewDir(PathName((std::string)part));
     }
     p=i+1;
   }

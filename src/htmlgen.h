@@ -18,6 +18,7 @@
 
 #include "outputgen.h"
 #include "ftextstream.h"
+#include "util.h"
 
 class QFile;
 
@@ -86,7 +87,7 @@ class HtmlGenerator : public OutputGenerator
     static void writeSearchData(const char *dir);
     static void writeSearchPage();
     static void writeExternalSearchPage();
-    static QCString writeLogoAsString(const char *path);
+    static QCString writeLogoAsString(const PathName path);
     static QCString writeSplitBarAsString(const char *name,const char *relpath);
 
     // ---- CodeOutputInterface
@@ -233,7 +234,7 @@ class HtmlGenerator : public OutputGenerator
     void endDoxyAnchor(const char *fName,const char *anchor);
     void writeLatexSpacing() {}
     void writeStartAnnoItem(const char *type,const char *file,
-                            const char *path,const char *name);
+                            const PathName path,const char *name);
     void writeEndAnnoItem(const char *) { t << endl; }
     void startSubsection()    { t << "<h2>"; }
     void endSubsection()      { t << "</h2>" << endl; }

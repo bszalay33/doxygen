@@ -22,6 +22,7 @@
 
 #include "index.h" // for IndexSections
 #include "outputgen.h"
+#include "util.h"
 
 class ClassDiagram;
 class DotClassGraph;
@@ -157,7 +158,7 @@ class OutputList : public OutputDocInterface
     void endHtmlLink()
     { forall(&OutputGenerator::endHtmlLink); }
     void writeStartAnnoItem(const char *type,const char *file,
-                            const char *path,const char *name)
+                            const PathName path,const char *name)
     { forall(&OutputGenerator::writeStartAnnoItem,type,file,path,name); }
     void writeEndAnnoItem(const char *name)
     { forall(&OutputGenerator::writeEndAnnoItem,name); }

@@ -22,7 +22,6 @@
 #include "config.h"
 #include "message.h"
 #include "doxygen.h"
-#include "util.h"
 #include "diagram.h"
 #include "language.h"
 #include "version.h"
@@ -1136,10 +1135,10 @@ void LatexGenerator::endHtmlLink()
 //}
 
 void LatexGenerator::writeStartAnnoItem(const char *,const char *,
-                                        const char *path,const char *name)
+                                        const PathName path,const char *name)
 {
   t << "\\item\\contentsline{section}\\textbf{ ";
-  if (path) docify(path);
+  if (path.get() != nullptr) docify((QCString)path.get());
   docify(name);
   t << "} ";
 }
@@ -1548,7 +1547,7 @@ void LatexGenerator::startClassDiagram()
 void LatexGenerator::endClassDiagram(const ClassDiagram &d,
                                        const char *fileName,const char *)
 {
-  d.writeFigure(t,dir(),fileName);
+  d.writeFigure(t,PathName((std::string)dir()),fileName);
 }
 
 
@@ -1777,7 +1776,7 @@ void LatexGenerator::startDotGraph()
 
 void LatexGenerator::endDotGraph(DotClassGraph &g)
 {
-  g.writeGraph(t,GOF_EPS,EOF_LaTeX,dir(),fileName(),m_relPath);
+  g.writeGraph(t,GOF_EPS,EOF_LaTeX,PathName(dir()),fileName(),m_relPath);
 }
 
 void LatexGenerator::startInclDepGraph()
@@ -1786,7 +1785,7 @@ void LatexGenerator::startInclDepGraph()
 
 void LatexGenerator::endInclDepGraph(DotInclDepGraph &g)
 {
-  g.writeGraph(t,GOF_EPS,EOF_LaTeX,dir(),fileName(),m_relPath);
+  g.writeGraph(t,GOF_EPS,EOF_LaTeX,PathName(dir()),fileName(),m_relPath);
 }
 
 void LatexGenerator::startGroupCollaboration()
@@ -1795,7 +1794,7 @@ void LatexGenerator::startGroupCollaboration()
 
 void LatexGenerator::endGroupCollaboration(DotGroupCollaboration &g)
 {
-  g.writeGraph(t,GOF_EPS,EOF_LaTeX,dir(),fileName(),m_relPath);
+  g.writeGraph(t,GOF_EPS,EOF_LaTeX,PathName(dir()),fileName(),m_relPath);
 }
 
 void LatexGenerator::startCallGraph()
@@ -1804,7 +1803,7 @@ void LatexGenerator::startCallGraph()
 
 void LatexGenerator::endCallGraph(DotCallGraph &g)
 {
-  g.writeGraph(t,GOF_EPS,EOF_LaTeX,dir(),fileName(),m_relPath);
+  g.writeGraph(t,GOF_EPS,EOF_LaTeX,PathName(dir()),fileName(),m_relPath);
 }
 
 void LatexGenerator::startDirDepGraph()
@@ -1813,7 +1812,7 @@ void LatexGenerator::startDirDepGraph()
 
 void LatexGenerator::endDirDepGraph(DotDirDeps &g)
 {
-  g.writeGraph(t,GOF_EPS,EOF_LaTeX,dir(),fileName(),m_relPath);
+  g.writeGraph(t,GOF_EPS,EOF_LaTeX,PathName((std::string)dir()),fileName(),m_relPath);
 }
 
 void LatexGenerator::startDescription()

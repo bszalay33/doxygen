@@ -17,6 +17,7 @@
 
 #include "config.h"
 #include "outputgen.h"
+#include "util.h"
 
 class DocbookCodeGenerator : public CodeOutputInterface
 {
@@ -263,7 +264,7 @@ class DocbookGenerator : public OutputGenerator
     void endDoxyAnchor(const char *fileName,const char *anchor);
     void writeLatexSpacing(){DB_GEN_EMPTY}
     void writeStartAnnoItem(const char *,const char *,
-                            const char *,const char *){DB_GEN_NEW};
+                            const PathName,const char *){DB_GEN_NEW};
     void writeEndAnnoItem(const char *){DB_GEN_NEW};
     void startMemberDescription(const char *,const char *,bool){DB_GEN_EMPTY};
     void endMemberDescription(){DB_GEN_EMPTY};
