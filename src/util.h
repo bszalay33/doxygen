@@ -54,14 +54,14 @@ class URLName
 public:
   explicit URLName(const QCString& url) : url_(url)
   {
-    if (!isValidURL(url))
+    if (!isValidURL(url_))
     {
       throw new URLException;
     }
   }
   explicit URLName(QCString&& url) : url_(std::move(url))
   {
-    if (!isValidURL(url))
+    if (!isValidURL(url_))
     {
       throw new URLException;
     }
@@ -100,14 +100,14 @@ class PathName
 public:
   explicit PathName(const QCString& path) : path_(path)
   {
-    if (!isValidPathName(path))
+    if (!isValidPathName(path_))
     {
       throw new PathNameException;
     }
   }
   explicit PathName(QCString&& path) : path_(std::move(path))
   {
-    if (!isValidPathName(path))
+    if (!isValidPathName(path_))
     {
       throw new PathNameException;
     }
