@@ -39,6 +39,53 @@
 
 #include <exception>
 #include <fstream>
+#include <regex>
+
+class URLException : public std::exception
+{
+  virtual const char* what() const
+  {
+    return "Illegal URL.";
+  }
+};
+
+class URLName
+{
+public:
+  explicit URLName(const QCString& url) : url_(url)
+  {
+    if (!isValidURL(url))
+    {
+      throw new URLException;
+    }
+  }
+  explicit URLName(QCString&& url) : url_(std::move(url))
+  {
+    if (!isValidURL(url))
+    {
+      throw new URLException;
+    }
+  }
+  QCString get() const { return url_; }
+
+  bool isValidURL(QCString url)
+  {
+    if (std::regex_match(std::string(url), url_regex))
+    {
+      return true;
+    }
+    return false;
+  }
+private:
+  QCString url_;
+
+  const std::regex url_regex{
+    R"(^(([^:\/?#]+):)?(//([^\/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?)",
+    std::regex::extended
+  };
+};
+
+//--------------------------------------------------------------------
 
 class PathNameException : public std::exception
 {
