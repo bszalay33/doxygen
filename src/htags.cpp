@@ -21,7 +21,6 @@
 #include <qdir.h>
 
 #include "htags.h"
-#include "util.h"
 #include "message.h"
 #include "config.h"
 #include "portable.h"
@@ -161,9 +160,9 @@ bool Htags::loadFilemap(const QCString &htmlDir)
  *  \param path path name
  *  \returns URL NULL: not found.
  */
-QCString Htags::path2URL(const QCString &path)
+QCString Htags::path2URL(const URLName &path)
 {
-  QCString url,symName=path;
+  QCString url,symName=path.get();
   QCString dir = g_inputDir.absPath().utf8();
   int dl=dir.length();
   if ((int)symName.length()>dl+1)

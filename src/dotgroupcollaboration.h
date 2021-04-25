@@ -51,9 +51,9 @@ class DotGroupCollaboration : public DotGraph
 
     struct Link
     {
-      Link(const QCString lab,const QCString &u) : label(lab), url(u) {}
+      Link(const QCString lab,const URLName &u) : label(lab), url(u) {}
       QCString label;
-      QCString url;
+      URLName url;
     };
 
     struct Edge
@@ -70,11 +70,11 @@ class DotGroupCollaboration : public DotGraph
     };
 
     void buildGraph(const GroupDef* gd);
-    void addCollaborationMember(const Definition* def, QCString& url, EdgeType eType );
+    void addCollaborationMember(const Definition* def, URLName& url, EdgeType eType );
     void addMemberList( class MemberList* ml );
     void writeGraphHeader(FTextStream &t,const QCString &title) const;
     Edge* addEdge( DotNode* _pNStart, DotNode* _pNEnd, EdgeType _eType,
-        const QCString& _label, const QCString& _url );
+        const QCString& _label, const URLName& _url );
 
     DotNode        *m_rootNode;
     DotNodeMap      m_usedNodes;

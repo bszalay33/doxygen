@@ -66,7 +66,7 @@ void DotGroupCollaboration::buildGraph(const GroupDef* gd)
       nnode = it->second;
     }
     tmp_url = "";
-    addEdge( nnode, m_rootNode, DotGroupCollaboration::thierarchy, tmp_url, tmp_url );
+    addEdge( nnode, m_rootNode, DotGroupCollaboration::thierarchy, tmp_url, URLName(tmp_url));
   }
 
   // Add subgroups
@@ -87,7 +87,7 @@ void DotGroupCollaboration::buildGraph(const GroupDef* gd)
       nnode = it->second;
     }
     tmp_url = "";
-    addEdge( m_rootNode, nnode, DotGroupCollaboration::thierarchy, tmp_url, tmp_url );
+    addEdge( m_rootNode, nnode, DotGroupCollaboration::thierarchy, tmp_url, URLName(tmp_url));
   }
 
   //=======================
@@ -104,28 +104,28 @@ void DotGroupCollaboration::buildGraph(const GroupDef* gd)
     {
       tmp_url+="#"+def->anchor();
     }
-    addCollaborationMember( def, tmp_url, DotGroupCollaboration::tclass );
+    addCollaborationMember( def, URLName(tmp_url), DotGroupCollaboration::tclass );
   }
 
   // Add namespaces
   for (const auto &def : gd->getNamespaces())
   {
     tmp_url = def->getReference()+"$"+def->getOutputFileBase()+Doxygen::htmlFileExtension;
-    addCollaborationMember( def, tmp_url, DotGroupCollaboration::tnamespace );
+    addCollaborationMember( def, URLName(tmp_url), DotGroupCollaboration::tnamespace );
   }
 
   // Add files
   for (const auto &def : gd->getFiles())
   {
     tmp_url = def->getReference()+"$"+def->getOutputFileBase()+Doxygen::htmlFileExtension;
-    addCollaborationMember( def, tmp_url, DotGroupCollaboration::tfile );
+    addCollaborationMember( def, URLName(tmp_url), DotGroupCollaboration::tfile );
   }
 
   // Add pages
   for (const auto &def : gd->getPages())
   {
     tmp_url = def->getReference()+"$"+def->getOutputFileBase()+Doxygen::htmlFileExtension;
-    addCollaborationMember( def, tmp_url, DotGroupCollaboration::tpages );
+    addCollaborationMember( def, URLName(tmp_url), DotGroupCollaboration::tpages );
   }
 
   // Add directories
@@ -134,7 +134,7 @@ void DotGroupCollaboration::buildGraph(const GroupDef* gd)
     for(const auto def : gd->getDirs())
     {
       tmp_url = def->getReference()+"$"+def->getOutputFileBase()+Doxygen::htmlFileExtension;
-      addCollaborationMember( def, tmp_url, DotGroupCollaboration::tdir );
+      addCollaborationMember( def, URLName(tmp_url), DotGroupCollaboration::tdir );
     }
   }
 }
@@ -146,13 +146,13 @@ void DotGroupCollaboration::addMemberList( MemberList* ml )
   {
     QCString tmp_url = def->getReference()+"$"+def->getOutputFileBase()+Doxygen::htmlFileExtension
       +"#"+def->anchor();
-    addCollaborationMember( def, tmp_url, DotGroupCollaboration::tmember );
+    addCollaborationMember( def, URLName(tmp_url), DotGroupCollaboration::tmember );
   }
 }
 
 DotGroupCollaboration::Edge* DotGroupCollaboration::addEdge(
   DotNode* _pNStart, DotNode* _pNEnd, EdgeType _eType,
-  const QCString& _label, const QCString& _url )
+  const QCString& _label, const URLName& _url )
 {
   // search a existing link.
   auto it = std::find_if(m_edges.begin(),m_edges.end(),
@@ -175,7 +175,7 @@ DotGroupCollaboration::Edge* DotGroupCollaboration::addEdge(
 }
 
 void DotGroupCollaboration::addCollaborationMember(
-  const Definition* def, QCString& url, EdgeType eType )
+  const Definition* def, URLName& url, EdgeType eType )
 {
   // Create group nodes
   QCString tmp_str;

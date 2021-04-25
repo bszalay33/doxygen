@@ -21,7 +21,6 @@
 
 #include "searchindex.h"
 #include "config.h"
-#include "util.h"
 #include "doxygen.h"
 #include "language.h"
 #include "pagedef.h"
@@ -167,11 +166,11 @@ void SearchIndex::setCurrentDoc(const Definition *ctx,const char *anchor,bool is
   {
     ++m_urlIndex;
     m_url2IdMap.insert(std::make_pair(baseUrl.str(),m_urlIndex));
-    m_urls.insert(std::make_pair(m_urlIndex,URL(name,url)));
+    m_urls.insert(std::make_pair(m_urlIndex,URL(name,URLName(url))));
   }
   else
   {
-    m_urls.insert(std::make_pair(it->second,URL(name,url)));
+    m_urls.insert(std::make_pair(it->second,URL(name, URLName(url))));
   }
 }
 
@@ -328,7 +327,7 @@ void SearchIndex::write(const char *fileName)
   {
     urlOffsets[udi.first]=size;
     size+=udi.second.name.length()+1+
-          udi.second.url.length()+1;
+          udi.second.url.get().length()+1;
   }
 
   //printf("Total size %x bytes (word=%x stats=%x urls=%x)\n",size,wordsOffset,statsOffset,urlsOffset);
@@ -381,7 +380,7 @@ void SearchIndex::write(const char *fileName)
     for (const auto &udi : m_urls)
     {
       writeString(f,udi.second.name);
-      writeString(f,udi.second.url);
+      writeString(f,udi.second.url.get());
     }
   }
 

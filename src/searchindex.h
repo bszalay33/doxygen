@@ -26,6 +26,8 @@
 
 #include <qcstring.h>
 
+#include "util.h"
+
 class Definition;
 
 /*! Initialize the search indexer */
@@ -37,9 +39,9 @@ void finalizeSearchIndexer();
 
 struct URL
 {
-  URL(QCString n,QCString u) : name(n), url(u) {}
+  URL(QCString n,URLName u) : name(n), url(u) {}
   QCString name;
-  QCString url;
+  URLName url;
 };
 
 
