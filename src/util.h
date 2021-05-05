@@ -41,6 +41,52 @@
 #include <fstream>
 #include <regex>
 
+class CppIdentifierException : public std::exception
+{
+  virtual const char* what() const
+  {
+    return "Illegal C++ identifier.";
+  }
+};
+
+class CppIdentifier
+{
+public:
+  explicit CppIdentifier(const QCString& identifier) : identifier_(identifier)
+  {
+    if (!isValidCppIdentifier(identifier_))
+    {
+      throw new CppIdentifierException;
+    }
+  }
+  explicit CppIdentifier(QCString&& identifier) : identifier_(std::move(identifier))
+  {
+    if (!isValidCppIdentifier(identifier_))
+    {
+      throw new CppIdentifierException;
+    }
+  }
+  QCString get() const { return identifier_; }
+
+  bool isValidCppIdentifier(QCString identifier)
+  {
+    if (std::regex_match(std::string(identifier), identifier_regex))
+    {
+      return true;
+    }
+    return false;
+  }
+private:
+  QCString identifier_;
+
+  const std::regex identifier_regex{
+    R"(^[a-zA-Z_\x80-\xFF][a-zA-Z0-9_\x80-\xFF]*$)",
+    std::regex::extended
+  };
+};
+
+//--------------------------------------------------------------------
+
 class URLException : public std::exception
 {
   virtual const char* what() const
