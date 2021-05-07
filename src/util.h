@@ -52,6 +52,7 @@ class CppIdentifierException : public std::exception
 class CppIdentifier
 {
 public:
+  CppIdentifier() = default;
   explicit CppIdentifier(const QCString& identifier) : identifier_(identifier)
   {
     if (!isValidCppIdentifier(identifier_))
@@ -67,6 +68,14 @@ public:
     }
   }
   QCString get() const { return identifier_; }
+  void set(QCString identifier)
+  {
+    if (!isValidCppIdentifier(identifier))
+    {
+      throw new CppIdentifierException;
+    }
+    identifier_ = identifier;
+  }
 
   bool isValidCppIdentifier(QCString identifier)
   {

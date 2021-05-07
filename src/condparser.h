@@ -23,6 +23,7 @@
  */
 
 #include <qcstring.h>
+#include "util.h"
 
 class CondParser
 {
@@ -68,7 +69,7 @@ class CondParser
     bool parseVar();
 
     bool evalOperator(const int opId, bool lhs, bool rhs);
-    bool evalVariable(const char *varName);
+    bool evalVariable(const CppIdentifier varName);
     int getOperatorId(const QCString &opName);
 };
 

@@ -263,7 +263,7 @@ bool CondParser::parseVar()
   {
     case VARIABLE:
       // this is a variable
-      ans = evalVariable(m_token);
+      ans = evalVariable(CppIdentifier(m_token));
       getToken();
       break;
 
@@ -303,9 +303,9 @@ bool CondParser::evalOperator(int opId, bool lhs, bool rhs)
 /**
  * evaluate a variable
  */
-bool CondParser::evalVariable(const char *varName)
+bool CondParser::evalVariable(const CppIdentifier varName)
 {
   const StringVector &list = Config_getList(ENABLED_SECTIONS);
-  return std::find(list.begin(),list.end(),varName)!=list.end();
+  return std::find(list.begin(),list.end(),varName.get())!=list.end();
 }
 

@@ -75,7 +75,7 @@ struct VHDLOutlineParser::Private
 
   Entry*                  oldEntry = 0;
   bool                    varr = FALSE;
-  QCString                varName;
+  CppIdentifier           varName;
   EntryList               libUse;
   EntryList               lineEntry;
   QCString                strComment;
@@ -451,9 +451,9 @@ void VHDLOutlineParser::handleCommentBlock(const char *doc1, bool brief)
     if (p->varr)
     {
       p->varr = FALSE;
-      s->current->name = p->varName;
+      s->current->name = p->varName.get();
       s->current->section = Entry::VARIABLEDOC_SEC;
-      p->varName = "";
+      p->varName.set("");
     }
     newEntry();
   }
@@ -463,7 +463,7 @@ void VHDLOutlineParser::handleCommentBlock(const char *doc1, bool brief)
 
 void VHDLOutlineParser::parsePrototype(const char *text)
 {
-  p->varName=text;
+  p->varName.set(text);
   p->varr=TRUE;
 }
 
